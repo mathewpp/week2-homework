@@ -1,0 +1,33 @@
+<h1>Current Conditions:</h1>
+<% 
+# Require Ruby libraries
+require 'open-uri'
+require 'json'
+
+location = params['city']
+
+# Convert to an HTTP-compatible querystring parameter
+location = URI.escape(location)
+
+# Send an HTTP request to the OpenWeatherMap API
+json_data = open("http://api.openweathermap.org/data/2.5/weather?q=#{location}&units=imperial").read
+
+# Parse the response string into a Ruby data structure
+# (You will need to figure out what kind of structure it is)
+data = JSON.parse(json_data)
+
+temp 	  = data["main"]["temp"]
+country   = data["sys"]["country"]
+pressure  = data["main"]["pressure"]
+humidity  = data["main"]["humidity"]
+windspeed = data["wind"]["speed"]
+
+%>
+
+<p>It is currently <%= temp %> degrees in <%= location %>, <%= country %>.</p>
+<ul>
+	<li>Pressure : <%= pressure  %></li>
+	<li>Humidity : <%= humidity  %></li>
+	<li>Windspeed: <%= windspeed %></li>
+</ul>
+
