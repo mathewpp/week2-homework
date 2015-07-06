@@ -1,1 +1,7 @@
-<h1>Howdy</h1>
+<%
+	greetings = params['salutation']
+	if greetings == nil
+		greetings = 'Hello'
+	end
+%>
+<h1><%= greetings %></h1>

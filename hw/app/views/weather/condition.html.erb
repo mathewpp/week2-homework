@@ -16,11 +16,18 @@ json_data = open("http://api.openweathermap.org/data/2.5/weather?q=#{location}&u
 # (You will need to figure out what kind of structure it is)
 data = JSON.parse(json_data)
 
-temp 	  = data["main"]["temp"]
-country   = data["sys"]["country"]
-pressure  = data["main"]["pressure"]
-humidity  = data["main"]["humidity"]
-windspeed = data["wind"]["speed"]
+if data["main"] == nil 
+%>
+
+<p> Invalid City/Servies down, please retry after making sure the input data is correct!!! </p>
+
+<%
+else 
+	temp 	  = data["main"]["temp"]
+	country   = data["sys"]["country"]
+	pressure  = data["main"]["pressure"]
+	humidity  = data["main"]["humidity"]
+	windspeed = data["wind"]["speed"]
 
 %>
 
@@ -31,3 +38,4 @@ windspeed = data["wind"]["speed"]
 	<li>Windspeed: <%= windspeed %></li>
 </ul>
 
+<% end	%>
